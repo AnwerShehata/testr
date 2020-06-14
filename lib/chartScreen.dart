@@ -13,31 +13,38 @@ class ChartScreen extends StatefulWidget {
 class _ChartScreenState extends State<ChartScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Sample Code'),
+      ),
+      body: Container(
         child: BlocConsumer<UserBloc, List<User>>(
-      builder: (context, childList) {
-        return ListView.builder(
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          padding: EdgeInsets.all(16),
-          itemCount: childList.length,
-          itemBuilder: (context, index) {
-            return Card(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  ListTile(title: Text(childList[index].name), onTap: () => {}),
-                ],
-              ),
+          builder: (context, childList) {
+            return ListView.builder(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              padding: EdgeInsets.all(16),
+              itemCount: childList.length,
+              itemBuilder: (context, index) {
+                return Card(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      ListTile(
+                          title: Text(childList[index].name), onTap: () => {}),
+                    ],
+                  ),
+                );
+              },
             );
           },
-        );
-      },
-      listener: (BuildContext context, childList) {
-        Scaffold.of(context).showSnackBar(SnackBar(
-          content: Text('Added2!'),
-        ));
-      },
-    ));
+          listener: (BuildContext context, childList) {
+            Scaffold.of(context).showSnackBar(SnackBar(
+              content: Text('Added2!'),
+            ));
+          },
+        ),
+      ),
+    );
   }
 }

@@ -155,6 +155,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       snapchot.data[index].isSelectedUser
                           ? snapchot.data[index].isSelectedUser = false
                           : snapchot.data[index].isSelectedUser = true;
+
                       User users = User(
                           name: snapchot.data[index].name,
                           username: snapchot.data[index].username);
