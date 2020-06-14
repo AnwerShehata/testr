@@ -1,5 +1,4 @@
 import 'dart:ui';
-import './model/data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'chartScreen.dart';
@@ -7,6 +6,9 @@ import './model/users.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:flutter_bloc/flutter_bloc.dart';
+import './bloc.dart';
+import './event.dart';
 
 void main() => runApp(MyApp());
 
@@ -17,10 +19,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'TestApp',
-      home: MyHomePage(),
+    return BlocProvider<UserBloc>(
+      create: (BuildContext context) => UserBloc(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'TestApp',
+        home: MyHomePage(),
+      ),
     );
   }
 }
@@ -69,7 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
     _myString1 = _getUsers();
     _myString2 = _getToDos();
   }
-   Data data;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,11 +100,9 @@ class _MyHomePageState extends State<MyHomePage> {
             ListTile(
               title: Text("Second"),
               onTap: () {
-               
-
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ChartScreen(value: data,)),
+                  MaterialPageRoute(builder: (context) => ChartScreen()),
                 );
                 print("object");
               },
@@ -130,7 +133,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildListUsers({String key, String string}) {
-    final List<Data> users = [];
+    List<User> listUser = [];
     return Container(
       child: FutureBuilder(
         future: _myString1,
@@ -152,9 +155,13 @@ class _MyHomePageState extends State<MyHomePage> {
                       snapchot.data[index].isSelectedUser
                           ? snapchot.data[index].isSelectedUser = false
                           : snapchot.data[index].isSelectedUser = true;
-                      Data users = Data(
+                      User users = User(
                           name: snapchot.data[index].name,
                           username: snapchot.data[index].username);
+                      listUser.add(users);
+
+                      BlocProvider.of<UserBloc>(context)
+                          .add(UserEvent.addList(listUser));
                     });
                   },
                   /*child: AnimatedContainer(
