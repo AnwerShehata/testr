@@ -132,8 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget _buildListUsers({String key, String string}) {
-    
+  Widget _buildListUsers({String key, String string}) {   
     return Container(
       child: FutureBuilder(
         future: _futureGetUsers,
