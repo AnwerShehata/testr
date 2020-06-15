@@ -64,15 +64,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return toDos;
   }
-
-  Future<List<User>> _myString1;
-  Future<List<User>> _myString2;
+  List<User> listUser = [];
+  Future<List<User>> _futureGetUsers;
+  Future<List<User>> _futureGetToDos;
 
   @override
   void initState() {
     super.initState();
-    _myString1 = _getUsers();
-    _myString2 = _getToDos();
+    _futureGetUsers = _getUsers();
+    _futureGetToDos = _getToDos();
   }
 
   @override
@@ -133,10 +133,10 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildListUsers({String key, String string}) {
-    List<User> listUser = [];
+    
     return Container(
       child: FutureBuilder(
-        future: _myString1,
+        future: _futureGetUsers,
         builder: (BuildContext contex, AsyncSnapshot snapchot) {
           if (snapchot.data == null) {
             return Container(
@@ -217,7 +217,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _buildListToDos({String key, String string}) {
     return Container(
       child: FutureBuilder(
-        future: _myString2,
+        future: _futureGetToDos,
         builder: (BuildContext contex, AsyncSnapshot snapchot) {
           if (snapchot.data == null) {
             return Container(
