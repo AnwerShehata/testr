@@ -44,10 +44,12 @@ class _MyHomePageState extends State<MyHomePage> {
     jsonData.forEach((curValue) {
       print(curValue);
       User curUser = User.fromMapUsers(curValue);
+
       users.add(curUser);
+
       // print(users[curValue]);
     });
-
+    users.toSet().toList();
     return users;
   }
 
@@ -64,6 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return toDos;
   }
+
   List<User> listUser = [];
   Future<List<User>> _futureGetUsers;
   Future<List<User>> _futureGetToDos;
@@ -132,7 +135,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget _buildListUsers({String key, String string}) {   
+  Widget _buildListUsers({String key, String string}) {
     return Container(
       child: FutureBuilder(
         future: _futureGetUsers,
@@ -158,7 +161,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       User users = User(
                           name: snapchot.data[index].name,
                           username: snapchot.data[index].username);
-                      listUser.add(users);
+                      if (snapchot.data[index].isSelectedUser == true) {
+                        listUser.add(users);
+                      }
 
                       BlocProvider.of<UserBloc>(context)
                           .add(UserEvent.addList(listUser));
