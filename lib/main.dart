@@ -42,12 +42,9 @@ class _MyHomePageState extends State<MyHomePage> {
     var jsonData = json.decode(data.body);
     List<User> users = [];
     jsonData.forEach((curValue) {
-      print(curValue);
       User curUser = User.fromMapUsers(curValue);
 
       users.add(curUser);
-
-      // print(users[curValue]);
     });
     users.toSet().toList();
     return users;
@@ -58,10 +55,8 @@ class _MyHomePageState extends State<MyHomePage> {
     var jsonData = json.decode(data.body);
     List<User> toDos = [];
     jsonData.forEach((curValue) {
-      print(curValue);
       User curToDos = User.fromMapTodos(curValue);
       toDos.add(curToDos);
-      //  print(toDos[curValue]);
     });
 
     return toDos;
