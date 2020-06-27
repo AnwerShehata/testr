@@ -4,8 +4,6 @@ import './model/users.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ChartScreen extends StatefulWidget {
-  static const String routeName = "/account";
-
   @override
   _ChartScreenState createState() => _ChartScreenState();
 }

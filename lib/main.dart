@@ -95,19 +95,18 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             ListTile(
-              title: Text("First"),
+              title: Text("Home"),
               onTap: () {
                 Navigator.pop(context);
               },
             ),
             ListTile(
-              title: Text("Second"),
+              title: Text("Selected"),
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => ChartScreen()),
                 );
-                print("object");
               },
             )
           ],
